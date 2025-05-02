@@ -1,0 +1,30 @@
+
+# Project Architecture
+
+## Option Chosen: Modular Microservices (loosely coupled)
+
+### Services
+
+1. **inventory_service.py**
+   - Checks which stores have inventory for a given product.
+
+2. **routing_service.py**
+   - Determines best fulfillment method based on customer ZIP and store distance.
+
+3. **order_service.py**
+   - Logs orders and responses into the database.
+
+### Data Flow
+
+User submits an order (product_id + zip):
+- Routing service calls inventory service.
+- Based on result and distance, returns fulfillment method.
+- Order service logs it to DB.
+
+All services access a shared MySQL database.
+
+## Future Considerations
+
+- Add authentication and rate limiting
+- Implement user preferences (delivery vs pickup)
+- Add real-time inventory updates
